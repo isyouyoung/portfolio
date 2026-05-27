@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="50" fill="url(#bg)"/>
+  <g fill="#fff" opacity="0.95">
+    <rect x="22" y="60" width="10" height="20" rx="2"/>
+    <rect x="36" y="48" width="10" height="32" rx="2"/>
+    <rect x="50" y="38" width="10" height="42" rx="2"/>
+    <rect x="64" y="30" width="10" height="50" rx="2"/>
+  </g>
+  <text x="50" y="22" font-family="system-ui" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">빅데이터</text>
+</svg>

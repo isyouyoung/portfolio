@@ -1,0 +1,194 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "D2Coding", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.16 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0 0);
+  --primary: oklch(0.20 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.20 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.50 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.20 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.65 0 0);
+}
+
+.dark {
+  --background: oklch(0.16 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.21 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.21 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0 0);
+  --primary-foreground: oklch(0.20 0 0);
+  --secondary: oklch(0.26 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.26 0 0);
+  --muted-foreground: oklch(0.70 0 0);
+  --accent: oklch(0.26 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.55 0 0);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* 한글에 적합한 자간 — Pretendard 권장값 */
+    letter-spacing: -0.01em;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+    line-break: strict;
+    overflow-wrap: anywhere;
+  }
+
+  /* 큰 타이포 — 한글에서는 자간을 더 조여야 자연스러움 */
+  h1, .h1 { letter-spacing: -0.025em; }
+  h2, .h2 { letter-spacing: -0.02em; }
+  h3, h4, h5, h6 { letter-spacing: -0.015em; }
+
+  /* 한글 본문은 줄간격을 조금 더 여유있게 */
+  p, li {
+    line-height: 1.7;
+  }
+
+  code, pre, .font-mono {
+    font-feature-settings: "calt", "liga" 0;
+  }
+
+  /* 숫자/날짜는 표 모양으로 정렬 */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* prose (마크다운 본문) ----------------------------------------- */
+  .prose {
+    line-height: 1.75;
+  }
+
+  .prose pre {
+    @apply leading-relaxed bg-muted/40! font-mono! rounded-xl! p-4! border! border-border!;
+    font-size: 0.875rem;
+  }
+
+  .prose code {
+    @apply mx-1! border rounded-md! px-1.5 py-0.5 bg-muted/60 dark:bg-muted/40 text-[13px]! font-mono text-foreground/90!;
+  }
+
+  .prose pre code {
+    @apply bg-transparent! border-0! p-0!;
+  }
+
+  .prose code::before,
+  .prose code::after {
+    @apply content-none!;
+  }
+
+  .prose h1 { @apply text-2xl! font-semibold! tracking-tight! mt-8! mb-3!; }
+  .prose h2 { @apply text-xl! font-semibold! tracking-tight! mt-8! mb-3!; }
+  .prose h3 { @apply text-lg! font-semibold! tracking-tight! mt-6! mb-2!; }
+
+  .prose a {
+    @apply text-foreground! underline! underline-offset-4! decoration-muted-foreground! hover:decoration-foreground!;
+  }
+
+  .prose blockquote {
+    @apply border-l-4! border-foreground/30! pl-4! italic! bg-muted/40! py-3! pr-4! rounded-r-md! not-italic!;
+  }
+
+  .prose blockquote p {
+    @apply m-0!;
+  }
+
+  .prose :where(table):not(:where([class~="not-prose"]) *) {
+    @apply w-full min-w-full;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .prose :where(th, td):not(:where([class~="not-prose"] *)) {
+    @apply px-4! py-2.5! align-middle border-b border-border text-sm!;
+  }
+
+  .prose :where(th):not(:where([class~="not-prose"] *)) {
+    @apply text-left! font-semibold! text-foreground! bg-muted/40!;
+  }
+
+  .prose :where(table):not(:where([class~="not-prose"] *)) {
+    @apply rounded-xl overflow-hidden border border-border;
+  }
+
+  .prose ul {
+    @apply pl-5! my-3!;
+  }
+
+  .prose ol {
+    @apply pl-5! my-3!;
+  }
+
+  .prose li {
+    @apply my-1!;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklch, var(--foreground) 20%, transparent);
+    color: var(--foreground);
+  }
+}
